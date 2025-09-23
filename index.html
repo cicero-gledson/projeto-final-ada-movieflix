@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix Analytics</title>
+    <style>
+        :root {
+            --primary-color: #3f51b5;
+            --secondary-color: #f44336;
+            --background-color: #f0f2f5;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        .section {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .button, .link {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover, .link:hover {
+            background-color: #5c6bc0;
+        }
+
+        .button-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #ef5350;
+        }
+
+        #output-area {
+            min-height: 200px;
+            background-color: #e3e7ec;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            border: 1px solid #c0c3c6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MovieFlix Analytics</h1>
+        <p>Análise de dados de filmes e usuários</p>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>Ações de Usuário e Conteúdo</h2>
+            <div class="grid grid-2">
+                <a href="#" class="link" onclick="handleAction('cadastrar-filme')">Cadastrar Novo Filme</a>
+                <a href="#" class="link" onclick="handleAction('cadastrar-usuario')">Cadastrar Novo Usuário</a>
+                <a href="#" class="link button-secondary" onclick="handleAction('avaliar-filme')">Avaliar um Filme</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Relatórios e Análises</h2>
+            <div class="grid grid-3">
+                <button class="button" onclick="handleAction('top-filmes-genero')">10 Filmes Mais Bem Avaliados por Gênero</button>
+                <button class="button" onclick="handleAction('nota-media-idade')">Nota Média por Faixa Etária dos Usuários</button>
+                <button class="button" onclick="handleAction('avaliacoes-pais')">Número de Avaliações por País</button>
+                <button class="button" onclick="handleAction('cinco-populares')">Cinco Filmes Mais Populares</button>
+                <button class="button" onclick="handleAction('generos-melhor-avaliacao')">Gêneros com Melhor Avaliação Média</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Resultados</h2>
+            <pre id="output-area">Clique em um dos botões acima para ver o resultado.</pre>
+        </div>
+    </div>
+
+    <script>
+        const outputArea = document.getElementById('output-area');
+
+ async function handleAction(action) {
+    let url = '';
+    outputArea.textContent = 'Carregando...';
+
+    switch (action) {
+        case 'top-filmes-genero':
+            url = '/app/api/top-filmes-genero';
+            break;
+        case 'avaliacoes-pais':
+            url = '/app/api/avaliacoes-pais';
+            break;
+        case 'nota-media-idade':
+            url = '/app/api/notas-medias-faixa-etaria';
+            break;
+        case 'cinco-populares':
+            url = '/app/api/cinco-populares';
+            break;
+        case 'generos-melhor-avaliacao':
+            url = '/app/api/generos-melhor-avaliacao';
+            break;
+        default:
+            outputArea.textContent = 'Ação não implementada na API.';
+            return;
+    }
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Erro na rede: ${response.statusText}`);
+        }
+        const data = await response.json();
+        
+        // Formata os dados para exibição
+        let formattedOutput = '';
+        if (action === 'top-filmes-genero') {
+            for (const genero in data) {
+                formattedOutput += `\n${genero}:\n`;
+                data[genero].forEach(filme => {
+                    formattedOutput += ` ${String(filme.posicao_no_genero).padStart(2, ' ')}º - ${filme.titulo} (Nota: ${filme.nota_media})\n`;
+                });
+            }
+        } else if (action === 'avaliacoes-pais') {
+            formattedOutput = 'Avaliações por País:\n\n';
+            data.forEach(item => {
+                formattedOutput += `- ${item.pais}: ${item.total_avaliacoes} avaliações\n`;
+            });
+
+        } else if (action === 'nota-media-idade') {
+            // Título da nossa tabela
+            formattedOutput = 'Notas Médias por Filme e Faixa Etária:\n\n';
+
+            // Definição dos cabeçalhos e da largura de cada coluna (isto não precisa mudar)
+            const headers = {
+                titulo: "Título",
+                media_criancas: "Crianças",
+                media_adolescentes: "Adolesc.",
+                media_jovens_adultos: "Jov. Adultos",
+                media_adultos: "Adultos",
+                media_50_mais: "50+",
+                media_geral: "Média Geral"
+            };
+
+            const columnWidths = {
+                titulo: 35,
+                media_criancas: 10,
+                media_adolescentes: 11,
+                media_jovens_adultos: 15,
+                media_adultos: 10,
+                media_50_mais: 8,
+                media_geral: 12
+            };
+
+            // Monta a linha do cabeçalho
+            formattedOutput += headers.titulo.padEnd(columnWidths.titulo);
+            formattedOutput += headers.media_criancas.padEnd(columnWidths.media_criancas);
+            formattedOutput += headers.media_adolescentes.padEnd(columnWidths.media_adolescentes);
+            formattedOutput += headers.media_jovens_adultos.padEnd(columnWidths.media_jovens_adultos);
+            formattedOutput += headers.media_adultos.padEnd(columnWidths.media_adultos);
+            formattedOutput += headers.media_50_mais.padEnd(columnWidths.media_50_mais);
+            formattedOutput += headers.media_geral.padEnd(columnWidths.media_geral);
+            formattedOutput += '\n';
+
+            // Monta uma linha separadora
+            const separator = Object.values(columnWidths).reduce((sum, width) => sum + width, 0);
+            formattedOutput += '-'.repeat(separator) + '\n';
+
+            // Itera sobre cada filme nos dados para criar as linhas da tabela
+            data.forEach(item => {
+                // Garante que o título não quebre a formatação se for muito longo
+                const titulo = item.titulo.length > columnWidths.titulo - 2 
+                    ? item.titulo.substring(0, columnWidths.titulo - 5) + '...' 
+                    : item.titulo;
+
+                // ===== INÍCIO DA CORREÇÃO =====
+                // Usamos os nomes de colunas corretos, vindos da API
+
+                const mCriancas = (item.media_criancas_ate_12 !== null ? item.media_criancas_ate_12.toFixed(2) : '-').padEnd(columnWidths.media_criancas);
+                const mAdolesc = (item.media_adolescentes_13_a_17 !== null ? item.media_adolescentes_13_a_17.toFixed(2) : '-').padEnd(columnWidths.media_adolescentes);
+                const mJovens = (item.media_jovens_adultos_18_a_29 !== null ? item.media_jovens_adultos_18_a_29.toFixed(2) : '-').padEnd(columnWidths.media_jovens_adultos);
+                const mAdultos = (item.media_adultos_30_a_49 !== null ? item.media_adultos_30_a_49.toFixed(2) : '-').padEnd(columnWidths.media_adultos);
+                const m50Mais = (item.media_50_mais !== null ? item.media_50_mais.toFixed(2) : '-').padEnd(columnWidths.media_50_mais);
+                const mGeral = (item.media_geral !== null ? item.media_geral.toFixed(2) : '-').padEnd(columnWidths.media_geral);
+                
+                // ===== FIM DA CORREÇÃO =====
+
+                // Monta a linha do filme
+                formattedOutput += `${titulo.padEnd(columnWidths.titulo)}${mCriancas}${mAdolesc}${mJovens}${mAdultos}${m50Mais}${mGeral}\n`;
+            });
+        } else if (action === 'cinco-populares') {
+            const larguras = {
+                posicao: 4,  // Para "Nº "
+                titulo: 35,
+                genero: 20,
+                ano: 6     // Para "Ano "
+            };
+
+            const linhasTabela = data.map(item => {
+                // Formata cada parte da linha usando as larguras definidas
+                const indiceFmt = `${item.indice}º`.padEnd(larguras.posicao);
+                const tituloFmt = item.titulo.substring(0, larguras.titulo - 2).padEnd(larguras.titulo);
+                const generoFmt = item.genero.substring(0, larguras.genero - 2).padEnd(larguras.genero);
+                const anoFmt = String(item.ano).padEnd(larguras.ano);
+                const notaFmt = parseFloat(item.nota_media).toFixed(1); // Nota com 1 casa decimal
+
+                return `${indiceFmt}${tituloFmt}${generoFmt}${anoFmt}${notaFmt}`;
+            }).join('\n'); 
+           
+            const cabecalho = 'Nº'.padEnd(larguras.posicao) +
+                            'Título'.padEnd(larguras.titulo) +
+                            'Gênero'.padEnd(larguras.genero) +
+                            'Ano'.padEnd(larguras.ano) +
+                            'Nota';
+
+            const separador = ''.padEnd(cabecalho.length, '-');
+
+            formattedOutput = `Top-5 Filmes Mais Populares:\n\n` +
+                            `${cabecalho}\n` +
+                            `${separador}\n` +
+                            linhasTabela;
+        
+        } else if (action === 'generos-melhor-avaliacao') { 
+            const larguras = {
+                genero: 25,
+                nota: 15
+            };
+
+            const linhasTabela = data.map(item => {
+                const generoFormatado = item.genero.substring(0, larguras.genero - 2).padEnd(larguras.genero);
+                const notaFormatada = parseFloat(item.nota_media).toFixed(2); 
+                return `${generoFormatado}${notaFormatada}`;
+            }).join('\n');
+
+            const cabecalho = 'Gênero'.padEnd(larguras.genero) + 'Nota Média'.padEnd(larguras.nota);
+            const separador = ''.padEnd(cabecalho.length, '-');
+
+            formattedOutput = 'Gêneros com Melhor Avaliação Média:\n\n' +
+                            `${cabecalho}\n` +
+                            `${separador}\n` +
+                            linhasTabela;
+        }
+
+        outputArea.textContent = formattedOutput;
+    } catch (error) {
+        outputArea.textContent = `Erro ao buscar dados: ${error.message}`;
+    }
+}   </script>
+
+</body>
+</html>
