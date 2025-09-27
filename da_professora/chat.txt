@@ -1,0 +1,21 @@
+Thayse Frankenberger
+19:35
+Comandos que rodei no exemplo com postgres:
+
+Criar rede:
+docker network create dados-net
+
+Criar conteiner postgres:
+
+docker run -d --name pg-dados --network dados-net -e POSTGRES_USER=user -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=dw -p 5432:5432 -v CAMINHO-COMPLETO/pgdata:/var/lib/postgresql/data postgres:15
+
+Criar imagem
+
+docker build -t etl-postgres .
+
+Criar conteiner etl:
+
+docker run --rm --name etl-run --network dados-net -v CAMINHO-COMPLETO-ONDE-ESTAO-OS-CSVS/:/app/data -e PG_USER=user -e PG_PASS=secret -e PG_DB=dw -e PG_HOST=pg-dados etl-postgres
+Thayse Frankenberger
+19:36
+Extensão no VSCODE para usar o postgre > PostgreSQL

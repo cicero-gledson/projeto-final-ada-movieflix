@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Novo Filme - MovieFlix</title>
+    <style>
+        /* Estilos básicos consistentes com a página principal */
+        :root {
+            --primary-color: #3f51b5;
+            --secondary-color: #f44336;
+            --background-color: #f0f2f5;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+        }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #5c6bc0;
+        }
+        .link-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        #status-message {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            display: none; /* Começa escondido */
+        }
+        #status-message.success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        #status-message.error {
+            background-color: var(--error-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cadastrar Novo Filme</h1>
+        <form id="cadastro-form">
+            <div class="form-group">
+                <label for="titulo">Título do Filme</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="genero">Gênero</label>
+                <input type="text" id="genero" name="genero" required>
+            </div>
+            <div class="form-group">
+                <label for="ano">Ano de Lançamento</label>
+                <input type="number" id="ano" name="ano" min="1888" max="2030" required>
+            </div>
+            <button type="submit" class="button">Cadastrar Filme</button>
+        </form>
+        <div id="status-message"></div>
+        <a href="index.html" class="link-voltar">Voltar para a Página Principal</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('cadastro-form');
+        const statusMessage = document.getElementById('status-message');
+
+        form.addEventListener('submit', async function(event) {
+            // Previne o recarregamento da página
+            console.log("parada 1")
+            event.preventDefault();
+            console.log("parada 2")
+
+            // Pega os dados do formulário
+            const titulo = document.getElementById('titulo').value;
+            const genero = document.getElementById('genero').value;
+            const ano = document.getElementById('ano').value;
+
+            console.log("parada 3")
+
+
+            // Prepara os dados para envio
+            const dados = {
+                titulo: titulo,
+                genero: genero,
+                ano: parseInt(ano) // Envia o ano como número
+            };
+
+            // Envia os dados para o backend
+            try {
+                const response = await fetch('/app/api/cadastrar-filme', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                });
+
+                const result = await response.json();
+                console.log("parada 4");
+                console.log(result.message)
+                
+
+
+                // Exibe mensagem de sucesso ou erro
+                statusMessage.style.display = 'block';
+                if (response.ok) {
+                    statusMessage.textContent = result.message;
+                    statusMessage.className = 'success';
+                    form.reset(); // Limpa o formulário
+                } else {
+                    throw new Error(result.message || 'Erro ao cadastrar filme.');
+                }
+
+            } catch (error) {
+                statusMessage.textContent = error.message;
+                statusMessage.className = 'error';
+            }
+        });
+    </script>
+
+</body>
+</html>

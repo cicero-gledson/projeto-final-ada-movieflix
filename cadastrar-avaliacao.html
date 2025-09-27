@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nova Avaliação - MovieFlix</title>
+    <style>
+        :root {
+            --primary-color: #3f51b5;
+            --secondary-color: #f44336;
+            --background-color: #f0f2f5;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+        }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .search-wrapper {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .search-wrapper input {
+            flex-grow: 1;
+        }
+        .button, .button-search {
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: white;
+        }
+        .button-search {
+            background-color: var(--primary-color);
+        }
+        .button-search:hover {
+            background-color: #5c6bc0;
+        }
+        .button {
+            width: 100%;
+            background-color: var(--secondary-color);
+            padding: 1rem;
+        }
+        .button:hover {
+            background-color: #ef5350;
+        }
+        .link-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .results-box {
+            margin-top: 0.5rem;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result-item {
+            padding: 0.75rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-item:hover {
+            background-color: #f0f2f5;
+        }
+        .selection-display {
+            background-color: #e8f5e9; /* Verde claro */
+            color: #2e7d32;
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+        }
+        #status-message {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        #status-message.success { background-color: var(--success-color); color: white; }
+        #status-message.error { background-color: var(--error-color); color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Nova Avaliação</h1>
+        <form id="cadastro-form">
+            <div class="form-group">
+                <label for="usuario_busca">1. Buscar Usuário</label>
+                <div class="search-wrapper">
+                    <input type="text" id="usuario_busca" placeholder="Digite o nome de usuário">
+                    <button type="button" class="button-search" id="btn_busca_usuario">Buscar</button>
+                </div>
+                <div id="usuario_selecionado"></div>
+                <div class="results-box" id="usuario_resultados"></div>
+                <input type="hidden" id="usuario_id" name="usuario_id">
+            </div>
+
+            <div class="form-group">
+                <label for="filme_busca">2. Buscar Filme</label>
+                <div class="search-wrapper">
+                    <input type="text" id="filme_busca" placeholder="Digite o título do filme">
+                    <button type="button" class="button-search" id="btn_busca_filme">Buscar</button>
+                </div>
+                <div id="filme_selecionado"></div>
+                <div class="results-box" id="filme_resultados"></div>
+                <input type="hidden" id="filme_id" name="filme_id">
+            </div>
+            
+            <div class="form-group">
+                <label for="nota">3. Dar a Nota (de 0 a 10)</label>
+                <input type="number" id="nota" name="nota" min="0" max="10" step="1" required>
+            </div>
+
+            <button type="submit" class="button">Registrar Avaliação</button>
+        </form>
+        <div id="status-message"></div>
+        <a href="index.html" class="link-voltar">Voltar para a Página Principal</a>
+    </div>
+
+    <script>
+        // Elementos do formulário principal e mensagem de status
+        const form = document.getElementById('cadastro-form');
+        const statusMessage = document.getElementById('status-message');
+
+        // Elementos da busca de usuário
+        const btnBuscaUsuario = document.getElementById('btn_busca_usuario');
+        const usuarioBuscaInput = document.getElementById('usuario_busca');
+        const usuarioResultadosDiv = document.getElementById('usuario_resultados');
+        const usuarioSelecionadoDiv = document.getElementById('usuario_selecionado');
+        const hiddenUsuarioId = document.getElementById('usuario_id');
+        
+        // Elementos da busca de filme
+        const btnBuscaFilme = document.getElementById('btn_busca_filme');
+        const filmeBuscaInput = document.getElementById('filme_busca');
+        const filmeResultadosDiv = document.getElementById('filme_resultados');
+        const filmeSelecionadoDiv = document.getElementById('filme_selecionado');
+        const hiddenFilmeId = document.getElementById('filme_id');
+
+        /**
+         * Função genérica para buscar dados na API e exibir os resultados.
+         * @param {string} tipo - 'usuario' ou 'filme'
+         * @param {string} query - O termo a ser buscado
+         */
+        async function buscar(tipo, query) {
+            if (!query) {
+                alert(`Por favor, digite um ${tipo} para buscar.`);
+                return;
+            }
+
+            const endpoint = tipo === 'usuario' ? `/app/api/usuarios/buscar?nome=${query}` : `/app/api/filmes/buscar?titulo=${query}`;
+            const resultadosDiv = tipo === 'usuario' ? usuarioResultadosDiv : filmeResultadosDiv;
+            
+            resultadosDiv.innerHTML = 'Buscando...';
+
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
+                if (data.length === 0) {
+                    resultadosDiv.innerHTML = `<div class="result-item">Nenhum resultado encontrado.</div>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'result-item';
+                    itemDiv.textContent = tipo === 'usuario' ? `${item.nome_de_usuario} (${item.nome})` : `${item.titulo} (${item.ano})`;
+                    itemDiv.dataset.id = item.id;
+                    itemDiv.dataset.tipo = tipo;
+                    resultadosDiv.appendChild(itemDiv);
+                });
+            } catch (error) {
+                resultadosDiv.innerHTML = `<div class="result-item">Erro ao buscar.</div>`;
+                console.error('Erro na busca:', error);
+            }
+        }
+
+        // Adiciona os eventos de clique nos botões de busca
+        btnBuscaUsuario.addEventListener('click', () => buscar('usuario', usuarioBuscaInput.value));
+        btnBuscaFilme.addEventListener('click', () => buscar('filme', filmeBuscaInput.value));
+
+        /**
+         * Função para lidar com a seleção de um item nos resultados da busca.
+         */
+        function selecionarItem(event) {
+            const target = event.target;
+            if (!target.classList.contains('result-item') || !target.dataset.id) return;
+            
+            const { id, tipo, textContent } = target.dataset;
+            const nomeSelecionado = target.textContent;
+
+            if (tipo === 'usuario') {
+                hiddenUsuarioId.value = id;
+                usuarioSelecionadoDiv.innerHTML = `<div class="selection-display">Usuário Selecionado: <strong>${nomeSelecionado}</strong></div>`;
+                usuarioResultadosDiv.innerHTML = ''; // Limpa a lista
+            } else if (tipo === 'filme') {
+                hiddenFilmeId.value = id;
+                filmeSelecionadoDiv.innerHTML = `<div class="selection-display">Filme Selecionado: <strong>${nomeSelecionado}</strong></div>`;
+                filmeResultadosDiv.innerHTML = ''; // Limpa a lista
+            }
+        }
+
+        // Adiciona eventos de clique nas áreas de resultado
+        usuarioResultadosDiv.addEventListener('click', selecionarItem);
+        filmeResultadosDiv.addEventListener('click', selecionarItem);
+
+        // Evento de envio do formulário principal
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Pega os IDs dos campos ocultos
+            const usuarioId = hiddenUsuarioId.value;
+            const filmeId = hiddenFilmeId.value;
+            const nota = document.getElementById('nota').value;
+
+            if (!usuarioId || !filmeId) {
+                statusMessage.textContent = 'Erro: Você precisa buscar e selecionar um usuário e um filme.';
+                statusMessage.className = 'error';
+                statusMessage.style.display = 'block';
+                return;
+            }
+
+            const dados = {
+                usuario_id: parseInt(usuarioId),
+                filme_id: parseInt(filmeId),
+                nota: parseInt(nota)
+            };
+
+            statusMessage.textContent = 'Registrando...';
+            statusMessage.className = '';
+            statusMessage.style.display = 'block';
+
+            try {
+                const response = await fetch('/app/api/cadastrar-avaliacao', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    statusMessage.textContent = result.message;
+                    statusMessage.className = 'success';
+                    // Limpa tudo para uma nova avaliação
+                    form.reset();
+                    usuarioSelecionadoDiv.innerHTML = '';
+                    filmeSelecionadoDiv.innerHTML = '';
+                    hiddenUsuarioId.value = '';
+                    hiddenFilmeId.value = '';
+                } else {
+                    throw new Error(result.message || 'Erro ao registrar avaliação.');
+                }
+
+            } catch (error) {
+                statusMessage.textContent = error.message;
+                statusMessage.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -118,9 +118,10 @@
         <div class="section">
             <h2>Ações de Usuário e Conteúdo</h2>
             <div class="grid grid-2">
-                <a href="#" class="link" onclick="handleAction('cadastrar-filme')">Cadastrar Novo Filme</a>
-                <a href="#" class="link" onclick="handleAction('cadastrar-usuario')">Cadastrar Novo Usuário</a>
-                <a href="#" class="link button-secondary" onclick="handleAction('avaliar-filme')">Avaliar um Filme</a>
+
+                <a href="cadastrar-filme.html" class="link">Cadastrar Novo Filme</a>
+                <a href="cadastrar-usuario.html" class="link" onclick="handleAction('cadastrar-usuario')">Cadastrar Novo Usuário</a>
+                <a href="cadastrar-avaliacao.html" class="link button-secondary" onclick="handleAction('avaliar-filme')">Avaliar um Filme</a>
             </div>
         </div>
 
@@ -130,7 +131,7 @@
                 <button class="button" onclick="handleAction('top-filmes-genero')">10 Filmes Mais Bem Avaliados por Gênero</button>
                 <button class="button" onclick="handleAction('nota-media-idade')">Nota Média por Faixa Etária dos Usuários</button>
                 <button class="button" onclick="handleAction('avaliacoes-pais')">Número de Avaliações por País</button>
-                <button class="button" onclick="handleAction('cinco-populares')">Cinco Filmes Mais Populares</button>
+                <button class="button" onclick="handleAction('cinco-populares')">Cinco Filmes com Mais Avaliações</button>
                 <button class="button" onclick="handleAction('generos-melhor-avaliacao')">Gêneros com Melhor Avaliação Média</button>
             </div>
         </div>
@@ -266,7 +267,7 @@
                 const tituloFmt = item.titulo.substring(0, larguras.titulo - 2).padEnd(larguras.titulo);
                 const generoFmt = item.genero.substring(0, larguras.genero - 2).padEnd(larguras.genero);
                 const anoFmt = String(item.ano).padEnd(larguras.ano);
-                const notaFmt = parseFloat(item.nota_media).toFixed(1); // Nota com 1 casa decimal
+                const notaFmt = String(item.quantidade_avaliacoes); // 
 
                 return `${indiceFmt}${tituloFmt}${generoFmt}${anoFmt}${notaFmt}`;
             }).join('\n'); 
@@ -275,11 +276,11 @@
                             'Título'.padEnd(larguras.titulo) +
                             'Gênero'.padEnd(larguras.genero) +
                             'Ano'.padEnd(larguras.ano) +
-                            'Nota';
+                            'Número de Avaliações';
 
             const separador = ''.padEnd(cabecalho.length, '-');
 
-            formattedOutput = `Top-5 Filmes Mais Populares:\n\n` +
+            formattedOutput = `Top-5 Filmes Mais Populares (que tiveram mais avaliações):\n\n` +
                             `${cabecalho}\n` +
                             `${separador}\n` +
                             linhasTabela;

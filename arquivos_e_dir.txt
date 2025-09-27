@@ -1,0 +1,369 @@
+ O volume na unidade C ‚ Sistema
+ O N£mero de S‚rie do Volume ‚ 3202-5040
+
+ Pasta de C:\Temp\projeto-final
+
+27/09/2025  18:40    <DIR>          .
+20/09/2025  10:44    <DIR>          ..
+23/09/2025  17:37    <DIR>          .git
+23/09/2025  18:22    <DIR>          api
+27/09/2025  18:40                 0 arquivos_e_dir.txt
+27/09/2025  13:03            12.384 cadastrar-avaliacao.html
+25/09/2025  20:10             5.950 cadastrar-filme.html
+25/09/2025  20:30             6.142 cadastrar-usuario.html
+23/09/2025  15:32             2.081 comando para criar o volume e o conteiner para o postgres.md
+22/09/2025  21:58    <DIR>          dados
+23/09/2025  19:40    <DIR>          da_professora
+25/09/2025  20:35               356 Dockerfile
+27/09/2025  17:50            12.650 index.html
+21/09/2025  15:08               935 nginx.conf
+               8 arquivo(s)         40.498 bytes
+
+ Pasta de C:\Temp\projeto-final\.git
+
+23/09/2025  17:37    <DIR>          .
+27/09/2025  18:40    <DIR>          ..
+23/09/2025  17:28    <DIR>          branches
+23/09/2025  17:36                26 COMMIT_EDITMSG
+23/09/2025  17:37               306 config
+23/09/2025  17:28                73 description
+23/09/2025  17:35                21 HEAD
+23/09/2025  17:28    <DIR>          hooks
+23/09/2025  17:36             1.368 index
+23/09/2025  17:28    <DIR>          info
+23/09/2025  17:36    <DIR>          logs
+23/09/2025  17:36    <DIR>          objects
+23/09/2025  17:37    <DIR>          refs
+               5 arquivo(s)          1.794 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\branches
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\hooks
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:28               478 applypatch-msg.sample
+23/09/2025  17:28               896 commit-msg.sample
+23/09/2025  17:28             4.726 fsmonitor-watchman.sample
+23/09/2025  17:28               189 post-update.sample
+23/09/2025  17:28               424 pre-applypatch.sample
+23/09/2025  17:28             1.643 pre-commit.sample
+23/09/2025  17:28               416 pre-merge-commit.sample
+23/09/2025  17:28             1.374 pre-push.sample
+23/09/2025  17:28             4.898 pre-rebase.sample
+23/09/2025  17:28               544 pre-receive.sample
+23/09/2025  17:28             1.492 prepare-commit-msg.sample
+23/09/2025  17:28             2.783 push-to-checkout.sample
+23/09/2025  17:28             2.308 sendemail-validate.sample
+23/09/2025  17:28             3.650 update.sample
+              14 arquivo(s)         25.821 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\info
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:28               240 exclude
+               1 arquivo(s)            240 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\logs
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:36               187 HEAD
+23/09/2025  17:37    <DIR>          refs
+               1 arquivo(s)            187 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\logs\refs
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36    <DIR>          heads
+23/09/2025  17:37    <DIR>          remotes
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\logs\refs\heads
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:36               187 main
+               1 arquivo(s)            187 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\logs\refs\remotes
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:37    <DIR>          origin
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\logs\refs\remotes\origin
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:37               158 main
+               1 arquivo(s)            158 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:36    <DIR>          00
+23/09/2025  17:36    <DIR>          11
+23/09/2025  17:36    <DIR>          2c
+23/09/2025  17:36    <DIR>          2f
+23/09/2025  17:36    <DIR>          32
+23/09/2025  17:36    <DIR>          36
+23/09/2025  17:36    <DIR>          3e
+23/09/2025  17:36    <DIR>          44
+23/09/2025  17:36    <DIR>          6c
+23/09/2025  17:36    <DIR>          83
+23/09/2025  17:36    <DIR>          85
+23/09/2025  17:36    <DIR>          87
+23/09/2025  17:36    <DIR>          8b
+23/09/2025  17:36    <DIR>          ab
+23/09/2025  17:36    <DIR>          c8
+23/09/2025  17:36    <DIR>          ee
+23/09/2025  17:28    <DIR>          info
+23/09/2025  17:28    <DIR>          pack
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\00
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               170 97b053b6061e3ffadc79191f818eb0a6052637
+               1 arquivo(s)            170 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\11
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36             2.901 b47eb6fb2c05e7792b0d16c15090774886a108
+               1 arquivo(s)          2.901 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\2c
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36                84 9ae4a291818919e73d86e110ede52c160d1437
+               1 arquivo(s)             84 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\2f
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               225 47b22013df4a758d7479636f9b948253ef458d
+               1 arquivo(s)            225 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\32
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               111 ae7c516f47fce677b993e0ef33c3e9b5bec09f
+               1 arquivo(s)            111 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\36
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               121 1a3a5780e5c398245b859f09937e3f3d245acd
+               1 arquivo(s)            121 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\3e
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               469 e9d8fc42fb1913a9769fb89619524b427370c9
+               1 arquivo(s)            469 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\44
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               356 fa1caa8e1d7382326774be76b369d5f3b1f896
+               1 arquivo(s)            356 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\6c
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36             2.202 4b0e1e2c7c7cbea40212432d3092e526e9f812
+23/09/2025  17:36             2.172 b197688098cc3037605354b946b08aff0c90b1
+               2 arquivo(s)          4.374 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\83
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36             1.067 3b336fe9fbc63a97d4aa1085773c0ac1f1142c
+               1 arquivo(s)          1.067 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\85
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               786 929e2914066e808d8221d44044a5684d3f51b9
+23/09/2025  17:36             2.476 9345deb08f151b01f7217abd2869a9b42ac386
+23/09/2025  17:36               260 b5e1842b8236eea8580c6e15f873c9413e2450
+               3 arquivo(s)          3.522 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\87
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               156 3c652ff23a67ff3d6e106e10159985101930a2
+               1 arquivo(s)            156 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\8b
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36             1.992 11466c09ad50f9c3ed1b5554773f1998be8b30
+               1 arquivo(s)          1.992 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\ab
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36               143 37f6ef451a1fbe1616bb2dacd38e90fac6ebb3
+               1 arquivo(s)            143 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\c8
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36            16.609 b50065d1f1de1e6c782ed62a78cd6ef7bb2078
+               1 arquivo(s)         16.609 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\ee
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+23/09/2025  17:36             3.543 65e521e9bcaa016eb978bbea3386836268cfce
+               1 arquivo(s)          3.543 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\info
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\objects\pack
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:36    <DIR>          ..
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\refs
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:36    <DIR>          heads
+23/09/2025  17:37    <DIR>          remotes
+23/09/2025  17:28    <DIR>          tags
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\refs\heads
+
+23/09/2025  17:36    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:36                41 main
+               1 arquivo(s)             41 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\refs\remotes
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:37    <DIR>          origin
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\refs\remotes\origin
+
+23/09/2025  17:37    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+23/09/2025  17:37                41 main
+               1 arquivo(s)             41 bytes
+
+ Pasta de C:\Temp\projeto-final\.git\refs\tags
+
+23/09/2025  17:28    <DIR>          .
+23/09/2025  17:37    <DIR>          ..
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\api
+
+23/09/2025  18:22    <DIR>          .
+27/09/2025  18:40    <DIR>          ..
+27/09/2025  17:44             9.236 api.py
+23/09/2025  18:19               864 avaliacoes_logic.py
+23/09/2025  18:25               603 database.py
+24/09/2025  20:12               275 Dockerfile
+23/09/2025  18:19               791 filmes_logic.py
+23/09/2025  18:19             1.369 usuarios_logic.py
+23/09/2025  18:26    <DIR>          __pycache__
+               6 arquivo(s)         13.138 bytes
+
+ Pasta de C:\Temp\projeto-final\api\__pycache__
+
+23/09/2025  18:26    <DIR>          .
+23/09/2025  18:22    <DIR>          ..
+23/09/2025  18:26             1.222 avaliacoes_logic.cpython-312.pyc
+23/09/2025  18:26             1.087 database.cpython-312.pyc
+23/09/2025  18:26             1.184 filmes_logic.cpython-312.pyc
+23/09/2025  18:26             1.602 usuarios_logic.cpython-312.pyc
+               4 arquivo(s)          5.095 bytes
+
+ Pasta de C:\Temp\projeto-final\dados
+
+22/09/2025  21:58    <DIR>          .
+27/09/2025  18:40    <DIR>          ..
+22/09/2025  21:58            82.219 avaliacoes.csv
+20/09/2025  19:24               228 Dockerfile
+22/09/2025  21:51             2.044 filmes.csv
+22/09/2025  22:28            10.965 gera-db-postgres.py
+22/09/2025  21:12    <DIR>          old
+22/09/2025  21:48             5.527 usuarios.csv
+               5 arquivo(s)        100.983 bytes
+
+ Pasta de C:\Temp\projeto-final\dados\old
+
+22/09/2025  21:12    <DIR>          .
+22/09/2025  21:58    <DIR>          ..
+20/09/2025  13:55             7.769 avaliacoes.csv
+20/09/2025  14:56             3.937 filmes.csv
+20/09/2025  14:18               628 usuarios.csv
+               3 arquivo(s)         12.334 bytes
+
+ Pasta de C:\Temp\projeto-final\da_professora
+
+23/09/2025  19:40    <DIR>          .
+27/09/2025  18:40    <DIR>          ..
+23/09/2025  19:38               687 chat.txt
+23/09/2025  19:40    <DIR>          Etapa criando diagrama
+23/09/2025  19:36             1.287 Etapa criando diagrama.zip
+23/09/2025  19:36             1.950 Tratamento de dados aula passada - primeiro.zip
+23/09/2025  19:36             1.384 Tratamento de dados aula passada - Segunda.zip
+23/09/2025  19:35             2.954 Tratamento de dados com postgres.zip
+               5 arquivo(s)          8.262 bytes
+
+ Pasta de C:\Temp\projeto-final\da_professora\Etapa criando diagrama
+
+23/09/2025  19:40    <DIR>          .
+23/09/2025  19:40    <DIR>          ..
+23/09/2025  19:40    <DIR>          9405589bae4bd398da4f7fc95cef45aa-51530c5d3503a24e70699efb89f90c0d0f7275b8
+               0 arquivo(s)              0 bytes
+
+ Pasta de C:\Temp\projeto-final\da_professora\Etapa criando diagrama\9405589bae4bd398da4f7fc95cef45aa-51530c5d3503a24e70699efb89f90c0d0f7275b8
+
+23/09/2025  19:40    <DIR>          .
+23/09/2025  19:40    <DIR>          ..
+23/09/2025  19:40               118 Dockerfile
+23/09/2025  19:40               602 etl.py
+               2 arquivo(s)            720 bytes
+
+     Total de Arquivos na Lista:
+              77 arquivo(s)        245.342 bytes
+             122 pasta(s)   24.081.338.368 bytes dispon¡veis
