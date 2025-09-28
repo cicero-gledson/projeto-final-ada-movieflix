@@ -36,10 +36,6 @@ docker push cicerogledson/movieflix-proxy-web:latest
 ## para rodar o contêiner:
 docker run --rm --name movieflix-proxy-web -p 8080:80 --network movieflix-network -d cicerogledson/movieflix-proxy-web:latest
 
-
-
-
-
 Acesso por:
 http://localhost:8080
 ou,  criada uma entrada no arquivo C:\Windows\System32\drivers\etc\hosts com "127.0.0.1 www.movieflix.com", pode acessar  por:
