@@ -8,7 +8,6 @@ jobs:
   build-test-and-push:
     runs-on: ubuntu-latest
     
-    # Inicia um banco de dados PostgreSQL temporário para os testes da API
     services:
       postgres:
         image: postgres:13-alpine
@@ -36,19 +35,46 @@ jobs:
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
           docker build -t $IMAGE_NAME:latest -f Dockerfile .
           docker run -d --name test-frontend -p 8080:80 $IMAGE_NAME:latest
-          sleep 5 && curl -f http://localhost:8080
+          
+          # --- TESTE CORRIGIDO: Loop de verificação ---
+          echo "Aguardando o frontend iniciar..."
+          for i in {1..15}; do
+            if curl -sf http://localhost:8080; then
+              echo "✅ Frontend está respondendo."
+              break
+            fi
+            echo "Tentativa $i falhou. Aguardando 2 segundos..."
+            sleep 2
+          done
+          
+          # Garante que o teste falhe se o loop terminar sem sucesso
+          curl -f http://localhost:8080
+
           docker stop test-frontend
           docker push $IMAGE_NAME:latest
 
       - name: 4. Construindo, Testando e Enviando a Imagem da API
         env:
-          # Informa à API o endereço do banco de dados de teste
           DATABASE_URL: "postgresql://testuser:testpassword@localhost:5432/testdb"
         run: |
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-api"
           docker build -t $IMAGE_NAME:latest -f api/Dockerfile ./api
           docker run -d --name test-api -p 5000:5000 -e DATABASE_URL=$DATABASE_URL $IMAGE_NAME:latest
-          sleep 10 && curl -f http://localhost:5000/api/cinco-populares
+          
+          # --- TESTE CORRIGIDO: Loop de verificação ---
+          echo "Aguardando a API iniciar..."
+          for i in {1..15}; do
+            if curl -sf http://localhost:5000/api/cinco-populares; then
+              echo "✅ API está respondendo."
+              break
+            fi
+            echo "Tentativa $i falhou. Aguardando 2 segundos..."
+            sleep 2
+          done
+          
+          # Garante que o teste falhe se o loop terminar sem sucesso
+          curl -f http://localhost:5000/api/cinco-populares
+          
           docker stop test-api
           docker push $IMAGE_NAME:latest
 
