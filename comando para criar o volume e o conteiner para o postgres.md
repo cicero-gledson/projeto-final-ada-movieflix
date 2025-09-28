@@ -27,14 +27,14 @@ docker build -t cicerogledson/app-movieflix-backend-relatorios:latest .
 docker run --rm --name app-movieflix-backend-relatorios --network movieflix-network -e DB_HOST=db-movieflix -e DB_PORT=5432 -d cicerogledson/app-movieflix-backend-relatorios:latest
 
 # NOVO
-docker run --rm --name app-movieflix-backend-relatorios --network movieflix-network -p 5000:5000 -e DATABASE_URL="postgresql://postgres:postgres@db-movieflix:5432/MovieFlix-db" -d cicerogledson/app-movieflix-backend-relatorios:latest
+docker run --rm --name app-movieflix-backend-relatorios --network movieflix-network -p 5000:5000 -e DATABASE_URL="postgresql://postgres:postgres@db-movieflix:5432/MovieFlix-db" -d cicerogledson/movieflix-api:latest
 
 
 # para criar a imagem nginx do proxy reverso que servirá index.html em www.movieflix.com 
 docker build -t cicerogledson/movieflix-proxy-web:latest .
 docker push cicerogledson/movieflix-proxy-web:latest
 ## para rodar o contêiner:
-docker run --rm --name movieflix-proxy-web -p 8080:80 --network movieflix-network -d cicerogledson/movieflix-proxy-web:latest
+docker run --rm --name movieflix-proxy-web -p 8080:80 --network movieflix-network -d cicerogledson/movieflix-frontend:latest
 
 Acesso por:
 http://localhost:8080
