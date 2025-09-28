@@ -1,14 +1,7 @@
-# Dockerfile da api
-FROM python:3.10-slim
-
+FROM python:3.9-slim
 WORKDIR /app
-
-RUN pip install --no-cache-dir pandas psycopg2-binary flask flask-cors
-
-COPY api.py .
-COPY avaliacoes_logic.py .
-COPY database.py .
-COPY filmes_logic.py .
-COPY usuarios_logic.py .
-
-CMD ["python", "api.py"]
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "api:app"]
