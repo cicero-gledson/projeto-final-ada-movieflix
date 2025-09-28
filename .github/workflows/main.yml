@@ -30,12 +30,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 3. Construindo, Testando e Enviando a Imagem do Frontend
-        run: |
-          IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
-          docker build -t $IMAGE_NAME:latest -f Dockerfile .
-          docker run -d --name test-frontend -p 8080:80 $IMAGE_NAME:latest
-          
+        - name: 3. Construindo, Testando e Enviando a Imagem do Frontend
+                run: |
+                  IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
+                  docker build -t $IMAGE_NAME:latest -f frontend/Dockerfile ./frontend
+                  docker run -d --name test-frontend -p 8080:80 $IMAGE_NAME:latest    
+
+
           # --- TESTE CORRIGIDO: Loop de verificação ---
           echo "Aguardando o frontend iniciar..."
           for i in {1..15}; do
