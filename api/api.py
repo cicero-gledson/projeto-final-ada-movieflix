@@ -5,19 +5,26 @@ from psycopg2 import sql
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-# --- Módulos importados da sua aplicação ---
-# (Assumindo que estes arquivos existem e estão corretos)
+
 from database import get_db_connection
 from filmes_logic import registrar_filme
 from usuarios_logic import registrar_usuario
 from avaliacoes_logic import registrar_avaliacao
 
-# ERRO 1 CORRIGIDO: Inicialize a aplicação Flask APENAS UMA VEZ, no início.
-app = Flask(__name__)
-CORS(app) # Permite requisições de outras origens
 
-# ERRO 2 CORRIGIDO: Removida a segunda definição de 'get_db_connection' com SQLite.
-# Agora, todas as rotas usarão a função importada de 'database.py' (PostgreSQL).
+app = Flask(__name__)
+CORS(app) 
+
+
+# --- NOVA ROTA DE HEALTH CHECK ---
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """
+    Endpoint simples que não usa o banco de dados,
+    apenas para verificar se a API está online.
+    """
+    return jsonify({"status": "ok"}), 200
+
 
 # --- ROTAS DE CADASTRO (POST) ---
 
