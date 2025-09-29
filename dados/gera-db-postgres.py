@@ -208,9 +208,9 @@ if __name__ == "__main__":
         try:
             # Carrega os arquivos CSV usando a lógica original
             print("\nCarregando arquivos CSV para a memória...")
-            df_filmes = pd.read_csv('dados/filmes.csv')
-            df_usuarios = pd.read_csv('dados/usuarios.csv')
-            df_avaliacoes = pd.read_csv('dados/avaliacoes.csv')
+            df_filmes = pd.read_csv('filmes.csv')
+            df_usuarios = pd.read_csv('usuarios.csv')
+            df_avaliacoes = pd.read_csv('avaliacoes.csv')
             print("✅ Arquivos CSV carregados.")
 
             criar_esquema(conn)

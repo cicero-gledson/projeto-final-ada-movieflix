@@ -40,3 +40,30 @@ Acesso por:
 http://localhost:8080
 ou,  criada uma entrada no arquivo C:\Windows\System32\drivers\etc\hosts com "127.0.0.1 www.movieflix.com", pode acessar  por:
 http://www.movieflix.com:8080/
+
+# -------------------------------------------------------------------------
+
+# para subir tudo com o docker compose
+docker-compose up --build -d
+
+# para remover todos os contêiners
+docker-compose down
+
+# para parar apenas o frontend:
+docker-compose stop frontend
+
+
+# para iniciar novamente apenas o frontend:
+docker-compose up -d frontend
+
+# para reiniciar (parar e iniciar) apenas a API:
+docker-compose restart api
+
+# para reconstruir e reiniciar apenas o frontend após uma alteração no código:
+docker-compose up -d --build frontend
+
+# para reiniciar tudo
+docker-compose restart
+
+# para reconstruir as imagens e subir os contêiners:
+docker-compose up --build -d

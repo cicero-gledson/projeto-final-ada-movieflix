@@ -1,0 +1,58 @@
+services:
+  database:
+    image: postgres:14-alpine
+    container_name: db-movieflix
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=MovieFlix-db
+    volumes:
+      - db_postgresql:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - movieflix-net
+
+  api:
+    image: cicerogledson/movieflix-api:latest
+    container_name: app-movieflix-backend-relatorios
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@database:5432/MovieFlix-db
+    ports:
+      - "5000:5000"
+    networks:
+      - movieflix-net
+    depends_on:
+      - database
+
+  importer:
+    # --- CORREÇÃO APLICADA AQUI ---
+    # Agora o Compose vai construir a imagem a partir da pasta 'dados'
+    build: ./dados
+    image: cicerogledson/movieflix-importer:latest
+    container_name: movieflix-importer
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@database:5432/MovieFlix-db
+    networks:
+      - movieflix-net
+    depends_on:
+      - api 
+
+  frontend:
+    build: ./frontend
+    image: cicerogledson/movieflix-frontend:latest
+    container_name: movieflix-proxy-web
+    ports:
+      - "8080:80"
+    networks:
+      - movieflix-net
+    depends_on:
+      - api
+
+networks:
+  movieflix-net:
+    driver: bridge
+
+volumes:
+  db_postgresql:
+    driver: local
