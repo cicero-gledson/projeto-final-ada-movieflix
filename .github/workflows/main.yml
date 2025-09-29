@@ -30,28 +30,49 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 3. Construindo, Testando e Enviando a Imagem do Frontend
+
+- name: 3. Construindo, Testando e Enviando a Imagem do Frontend
         run: |
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
-          docker build -t $IMAGE_NAME:latest -f frontend/Dockerfile ./frontend
-          docker run -d --name test-frontend -p 8080:80 $IMAGE_NAME:latest    
-
-          # --- TESTE CORRIGIDO: Loop de verificação ---
-          echo "Aguardando o frontend iniciar..."
+          
+          # --- TESTE ---
+          # 1. Constrói uma imagem de teste usando a configuração de CI
+          echo "Construindo imagem de teste..."
+          docker build \
+            --build-arg NGINX_CONF_FILE=nginx.ci.conf \
+            -t test-frontend-image \
+            -f frontend/Dockerfile \
+            ./frontend
+          
+          # 2. Roda o contêiner de teste
+          docker run -d --name test-frontend -p 8080:80 test-frontend-image
+          
+          # 3. Executa o teste de verificação
+          echo "Aguardando o frontend iniciar para o teste..."
           for i in {1..15}; do
             if curl -sf http://localhost:8080; then
-              echo "✅ Frontend está respondendo."
+              echo "✅ Teste do Frontend passou."
               break
             fi
-            echo "Tentativa $i falhou. Aguardando 2 segundos..."
             sleep 2
           done
-          
-          # Garante que o teste falhe se o loop terminar sem sucesso
           curl -f http://localhost:8080
-
           docker stop test-frontend
+
+          # --- BUILD FINAL E PUSH ---
+          # 4. Constrói a imagem final (de produção) usando a configuração padrão
+          echo "Construindo imagem final de produção..."
+          docker build \
+            -t $IMAGE_NAME:latest \
+            -f frontend/Dockerfile \
+            ./frontend
+            
+          # 5. Envia a imagem final para o Docker Hub
           docker push $IMAGE_NAME:latest
+
+
+
+
 
       - name: 4. Construindo, Testando e Enviando a Imagem da API
         env:
