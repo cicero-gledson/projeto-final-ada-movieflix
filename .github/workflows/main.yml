@@ -34,17 +34,20 @@ jobs:
         run: |
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
           
-          # --- TESTE SIMPLES ---
+          # --- TESTE ---
+          echo "Preparando arquivos para o teste..."
+          # 1. Renomeia o nginx.conf de produção para não ser usado
+          mv frontend/nginx.conf frontend/nginx.conf.prod
+          # 2. Ativa a configuração de teste, renomeando-a para nginx.conf
+          mv frontend/nginx.ci.conf frontend/nginx.conf
+
           echo "Construindo imagem de teste..."
-          docker build --build-arg NGINX_CONF_FILE=nginx.ci.conf -t test-frontend-image -f frontend/Dockerfile ./frontend
-          
+          docker build -t test-frontend-image -f frontend/Dockerfile ./frontend
+
           echo "Rodando contêiner de teste..."
           docker run -d --name test-frontend -p 8080:80 test-frontend-image
-          
-          echo "Aguardando o frontend iniciar..."
-          sleep 5 # Espera 5 segundos para o contêiner subir
-          
-          # Teste simples: Apenas verifica se o contêiner está rodando
+          sleep 5 # Pausa para garantir que o contêiner suba
+
           if [ "$(docker ps -q -f name=test-frontend)" ]; then
             echo "✅ Teste de inicialização do Frontend passou."
           else
@@ -54,6 +57,11 @@ jobs:
           docker stop test-frontend
 
           # --- BUILD FINAL E PUSH ---
+          echo "Restaurando arquivos para o build de produção..."
+          # 3. Restaura os nomes originais dos arquivos
+          mv frontend/nginx.conf frontend/nginx.ci.conf
+          mv frontend/nginx.conf.prod frontend/nginx.conf
+          
           echo "Construindo imagem final de produção..."
           docker build -t $IMAGE_NAME:latest -f frontend/Dockerfile ./frontend
           
@@ -66,20 +74,14 @@ jobs:
         run: |
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-api"
           docker build -t $IMAGE_NAME:latest -f api/Dockerfile ./api
-          
           docker run -d --name test-api -p 5000:5000 -e DATABASE_URL=$DATABASE_URL $IMAGE_NAME:latest
-          
-          echo "Aguardando a API iniciar..."
-          sleep 10 # Espera 10 segundos para a API iniciar e conectar ao banco
-          
-          # Teste simples: Apenas verifica se o contêiner está rodando
+          sleep 10
           if [ "$(docker ps -q -f name=test-api)" ]; then
             echo "✅ Teste de inicialização da API passou."
           else
             echo "❌ Teste de inicialização da API FALHOU."
             exit 1
           fi
-          
           docker stop test-api
           docker push $IMAGE_NAME:latest
 
