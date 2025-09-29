@@ -30,8 +30,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-
-- name: 3. Construindo, Testando e Enviando a Imagem do Frontend
+      - name: 3. Construindo, Testando e Enviando a Imagem do Frontend
         run: |
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/movieflix-frontend"
           
@@ -69,10 +68,6 @@ jobs:
             
           # 5. Envia a imagem final para o Docker Hub
           docker push $IMAGE_NAME:latest
-
-
-
-
 
       - name: 4. Construindo, Testando e Enviando a Imagem da API
         env:
