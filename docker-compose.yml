@@ -26,8 +26,6 @@ services:
       - database
 
   importer:
-    # --- CORREÇÃO APLICADA AQUI ---
-    # Agora o Compose vai construir a imagem a partir da pasta 'dados'
     build: ./dados
     image: cicerogledson/movieflix-importer:latest
     container_name: movieflix-importer
